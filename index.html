@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Persian Mountaineers Networking Events</title>
+<meta name="description" content="A community connecting Persian mountaineers — find a mentor, become a mentor, and join our networking events." />
+<style>
+  :root{
+    --bg:#04142e;         /* WVU deep navy */
+    --bg-soft:#0a2149;
+    --card:#0f2650;
+    --card-2:#123061;
+    --ink:#eef4ff;
+    --ink-soft:#bcccea;
+    --muted:#8496bd;
+    --brand:#eaaa00;      /* WVU old gold */
+    --brand-2:#ffc740;    /* light gold */
+    --blue:#2e6fb8;       /* accent blue */
+    --accent:#eaaa00;     /* gold */
+    --snow:#e8f0fb;
+    --line:rgba(255,255,255,.09);
+    --shadow:0 18px 50px rgba(0,0,0,.4);
+    --radius:18px;
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1100px 620px at 12% -8%, rgba(234,170,0,.18), transparent 60%),
+      radial-gradient(950px 560px at 100% 0%, rgba(46,111,184,.30), transparent 55%),
+      var(--bg);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+  /* mountain silhouette behind hero */
+  .range{position:absolute;left:0;right:0;bottom:0;width:100%;height:180px;opacity:.5;pointer-events:none}
+
+  /* Nav */
+  header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
+    background:rgba(11,18,32,.75);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px;gap:14px}
+  .logo{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:.2px;font-size:1.02rem;line-height:1.1}
+  .logo .dot{width:38px;height:38px;border-radius:11px;flex:0 0 auto;
+    background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center}
+  .logo small{display:block;font-weight:500;color:var(--muted);font-size:.72rem;letter-spacing:.5px}
+  nav.links{display:flex;gap:24px;align-items:center}
+  nav.links a{color:var(--ink-soft);text-decoration:none;font-size:.94rem;font-weight:500}
+  nav.links a:hover{color:#fff}
+  .btn{display:inline-block;border:0;cursor:pointer;text-decoration:none;font-weight:700;
+    padding:12px 20px;border-radius:12px;font-size:.94rem;transition:transform .15s ease, box-shadow .15s ease}
+  .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#04142e;
+    box-shadow:0 10px 24px rgba(234,170,0,.34)}
+  .btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{background:rgba(255,255,255,.06);color:#fff;border:1px solid var(--line)}
+  .btn-ghost:hover{background:rgba(255,255,255,.12)}
+  @media(max-width:820px){nav.links a:not(.btn){display:none}}
+
+  /* Hero */
+  .hero{position:relative;padding:74px 0 120px;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center;position:relative;z-index:2}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;
+    background:rgba(234,170,0,.14);border:1px solid rgba(234,170,0,.42);color:#ffd873;
+    font-size:.78rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+  .chant{display:inline-flex;align-items:center;gap:8px;font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;font-size:.82rem;color:#ffd257;
+    padding:8px 15px;border-radius:999px;background:rgba(234,170,0,.12);border:1px solid rgba(234,170,0,.4)}
+  .hero h1{font-size:clamp(2rem,4.5vw,3.35rem);line-height:1.08;margin:18px 0 16px;font-weight:800}
+  .hero h1 .grad{background:linear-gradient(120deg,#ffd257,#eaaa00);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{color:var(--ink-soft);font-size:1.1rem;max-width:560px;margin:0 0 28px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+  .stats{display:flex;gap:34px;margin-top:38px;flex-wrap:wrap}
+  .stat b{display:block;font-size:1.65rem;font-weight:800;color:#fff}
+  .stat span{color:var(--muted);font-size:.88rem}
+
+  .hero-card{background:linear-gradient(160deg,var(--card),#0f1a2e);border:1px solid var(--line);
+    border-radius:22px;padding:24px;box-shadow:var(--shadow)}
+  .hero-card h3{margin:0 0 4px;font-size:1.02rem}
+  .hero-card .sub{color:var(--muted);font-size:.84rem;margin-bottom:16px}
+  .mini{display:flex;align-items:center;gap:12px;padding:11px;border-radius:13px;
+    background:rgba(255,255,255,.04);border:1px solid var(--line);margin-bottom:10px}
+  .mini .av{width:42px;height:42px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;
+    font-weight:800;color:#08111f;font-size:.9rem}
+  .mini .info{flex:1;min-width:0}
+  .mini .info b{font-size:.92rem}
+  .mini .info span{display:block;color:var(--muted);font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tag{font-size:.7rem;padding:4px 9px;border-radius:999px;background:rgba(234,170,0,.18);color:#ffd873;font-weight:700}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr}.hero-card{order:-1}}
+
+  /* Sections */
+  section{padding:58px 0}
+  .sec-head{text-align:center;max-width:660px;margin:0 auto 42px}
+  .sec-head .pill{margin-bottom:14px}
+  .sec-head h2{font-size:clamp(1.6rem,3.3vw,2.35rem);margin:6px 0 12px;font-weight:800}
+  .sec-head p{color:var(--ink-soft);margin:0}
+
+  /* How it works */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+  .step .num{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-weight:800;
+    background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#04142e;margin-bottom:16px}
+  .step h3{margin:0 0 8px;font-size:1.12rem}
+  .step p{margin:0;color:var(--ink-soft);font-size:.94rem}
+  @media(max-width:760px){.steps{grid-template-columns:1fr}}
+
+  /* Events */
+  .events{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .event{background:linear-gradient(160deg,var(--card),var(--card-2));border:1px solid var(--line);
+    border-radius:var(--radius);padding:22px;display:flex;flex-direction:column;gap:12px}
+  .event .date{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:700;
+    color:var(--accent);letter-spacing:.3px;text-transform:uppercase}
+  .event h3{margin:0;font-size:1.12rem}
+  .event p{margin:0;color:var(--ink-soft);font-size:.92rem;flex:1}
+  .event .loc{color:var(--muted);font-size:.86rem;display:flex;align-items:center;gap:7px}
+  @media(max-width:760px){.events{grid-template-columns:1fr}}
+
+  /* Mentors */
+  .filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:30px}
+  .chip{cursor:pointer;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink-soft);
+    padding:9px 16px;border-radius:999px;font-size:.86rem;font-weight:600;transition:.15s}
+  .chip.active,.chip:hover{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;border-color:transparent}
+  .mentors{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .m-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;
+    display:flex;flex-direction:column;transition:transform .18s ease,border-color .18s}
+  .m-card:hover{transform:translateY(-4px);border-color:rgba(234,170,0,.55)}
+  .m-top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+  .m-av{width:58px;height:58px;border-radius:14px;flex:0 0 auto;display:grid;place-items:center;
+    font-weight:800;font-size:1.7rem;color:#08111f}
+  .m-name{font-weight:700;font-size:1.03rem;margin:0}
+  .m-role{color:var(--muted);font-size:.84rem;margin:2px 0 0}
+  .m-bio{color:var(--ink-soft);font-size:.9rem;margin:0 0 16px;flex:1}
+  .m-tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+  .m-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    border-top:1px solid var(--line);padding-top:14px}
+  .m-rate{font-size:.8rem;color:var(--muted)}
+  .m-rate b{color:#fff;font-size:.9rem}
+  .req-btn{padding:9px 15px;font-size:.84rem;border-radius:10px}
+  @media(max-width:900px){.mentors{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:620px){.mentors{grid-template-columns:1fr}}
+
+  /* Forms with tabs */
+  #join{background:linear-gradient(180deg,transparent,rgba(234,170,0,.07))}
+  .tabs{display:flex;gap:10px;justify-content:center;margin-bottom:26px;flex-wrap:wrap}
+  .tab{cursor:pointer;padding:13px 26px;border-radius:14px;font-weight:700;font-size:.98rem;
+    border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink-soft);transition:.15s}
+  .tab.active{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#04142e;border-color:transparent;
+    box-shadow:0 10px 24px rgba(234,170,0,.3)}
+  .form-shell{max-width:840px;margin:0 auto;background:var(--card);border:1px solid var(--line);
+    border-radius:22px;padding:12px;box-shadow:var(--shadow)}
+  .form-frame{width:100%;min-height:960px;border:0;border-radius:16px;background:#fff;display:block}
+  .form-note{max-width:840px;margin:16px auto 0;text-align:center;color:var(--muted);font-size:.86rem}
+  .panel{display:none}
+  .panel.active{display:block}
+
+  /* Footer */
+  footer{border-top:1px solid var(--line);padding:40px 0;margin-top:30px}
+  .foot-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-start}
+  footer .logo{font-size:.98rem}
+  footer p{color:var(--muted);font-size:.85rem;margin:8px 0 0}
+  .foot-links{display:flex;gap:20px;flex-wrap:wrap}
+  .foot-links a{color:var(--ink-soft);text-decoration:none;font-size:.87rem}
+  .foot-links a:hover{color:#fff}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="logo">
+      <span class="dot">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 20L9.5 8l3.5 6 2-3.2L21 20H3z" fill="#eaf6ff"/>
+          <path d="M9.5 8l1.6 3-1.9 3.2L7 11l2.5-3z" fill="#bfe6ee"/>
+        </svg>
+      </span>
+      <span>Persian Mountaineers<small>Networking Events</small></span>
+    </div>
+    <nav class="links">
+      <a href="#how">How it works</a>
+      <a href="#events">Events</a>
+      <a href="#mentors">Mentors</a>
+      <a href="#join">Join</a>
+      <a href="#join" class="btn btn-primary">Get involved</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="chant">⛰ Let's Go, Mountaineers! 💙💛</span>
+      <h1>Climb higher, <span class="grad">together.</span></h1>
+      <p class="lead">Persian Mountaineers Networking Events connects our community — pairing newer members with experienced mentors across every industry, and bringing everyone together at meetups, training days and expeditions. Find a mentor, become one, or join the next event.</p>
+      <div class="cta-row">
+        <a href="#join" class="btn btn-primary">Find a mentor →</a>
+        <a href="#join" class="btn btn-ghost">Become a mentor</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>TBA</b><span>Successful professional matches</span></div>
+        <div class="stat"><b>TBA</b><span>Active mentors</span></div>
+        <div class="stat"><b>TBA</b><span>Fields covered</span></div>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <h3>Mentorship by industry</h3>
+      <p class="sub">Future mentors joining across fields</p>
+      <div class="mini">
+        <div class="av" style="background:linear-gradient(135deg,#eaaa00,#ffcf5c)">⚖️</div>
+        <div class="info"><b>Law</b><span>Legal careers &amp; guidance</span></div>
+        <span class="tag">Mentors soon</span>
+      </div>
+      <div class="mini">
+        <div class="av" style="background:linear-gradient(135deg,#2e6fb8,#1f4e8f)">🩺</div>
+        <div class="info"><b>Health Care</b><span>Medicine &amp; allied health</span></div>
+        <span class="tag">Mentors soon</span>
+      </div>
+      <div class="mini">
+        <div class="av" style="background:linear-gradient(135deg,#ffcf5c,#eaaa00)">⚙️</div>
+        <div class="info"><b>Engineering</b><span>All disciplines</span></div>
+        <span class="tag">Mentors soon</span>
+      </div>
+    </div>
+  </div>
+
+  <svg class="range" viewBox="0 0 1440 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 180 L180 70 L300 130 L470 40 L620 120 L820 20 L1010 110 L1180 50 L1320 120 L1440 60 L1440 180 Z" fill="rgba(234,170,0,.15)"/>
+    <path d="M0 180 L240 110 L430 150 L620 90 L840 150 L1040 80 L1240 150 L1440 100 L1440 180 Z" fill="rgba(46,111,184,.20)"/>
+  </svg>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="pill">How it works</span>
+      <h2>Get connected in three steps</h2>
+      <p>Whether you're looking to learn or to give back, it starts with a short form.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Submit a request</h3>
+        <p>Submit a form to request your expected mentor / field of interest.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>We match you</h3>
+        <p>Our team reviews your request and pairs you with a mentor in your chosen industry.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>Connect &amp; grow</h3>
+        <p>We invite you to the next networking event to connect in person or online.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="pill">Upcoming events</span>
+      <h2>Networking events &amp; meetups</h2>
+      <p>Where the community comes together — trainings, socials and group climbs.</p>
+    </div>
+    <div class="events">
+      <div class="event">
+        <span class="date">◷ Date to be determined</span>
+        <h3>Networking Mixer</h3>
+        <p>An evening for members and mentors to connect across industries. Details to be determined.</p>
+        <span class="loc">📍 In person / online — TBD</span>
+      </div>
+      <div class="event">
+        <span class="date">◷ Date to be determined</span>
+        <h3>Mentor Meet &amp; Greet</h3>
+        <p>Meet mentors from across our professional fields and find your match. Details to be determined.</p>
+        <span class="loc">📍 In person / online — TBD</span>
+      </div>
+      <div class="event">
+        <span class="date">◷ Date to be determined</span>
+        <h3>Skills &amp; Career Workshop</h3>
+        <p>Practical sessions and talks led by professionals in the community. Details to be determined.</p>
+        <span class="loc">📍 In person / online — TBD</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENTORS BY INDUSTRY -->
+<section id="mentors">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="pill">Mentorship by industry</span>
+      <h2>Future mentors, by field</h2>
+      <p>Our mentors are Persian professionals across industries. Pick the field you want to grow in, then request a mentor below — new mentors are joining each of these areas.</p>
+    </div>
+
+    <div class="mentors" id="mentorGrid"><!-- injected by JS --></div>
+  </div>
+</section>
+
+<!-- JOIN: two forms in tabs -->
+<section id="join">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="pill">Join the community</span>
+      <h2>Find a mentor or become one</h2>
+      <p>Choose a tab and fill in the form. Submissions go straight to our organizing team via Google Forms.</p>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" data-tab="mentee">🧭 Request a mentor</div>
+      <div class="tab" data-tab="mentor">🏔 Become a mentor</div>
+    </div>
+
+    <div class="form-shell">
+      <div class="panel active" id="panel-mentee">
+        <iframe class="form-frame" title="Request to become a mentee"
+          src="https://docs.google.com/forms/d/e/1FAIpQLSdOucqewSDimribmBn7nTnY5FiuBPfr5AhakJIc1I7-c-IxHA/viewform?embedded=true"
+          loading="lazy">Loading…</iframe>
+      </div>
+      <div class="panel" id="panel-mentor">
+        <iframe class="form-frame" title="Apply to become a mentor"
+          src="https://docs.google.com/forms/d/e/1FAIpQLSfKV6ZnI9MGZh_3wGLus5K2rS92TtnuaYWJwmx3-3Wp3KTzJg/viewform?embedded=true"
+          loading="lazy">Loading…</iframe>
+      </div>
+    </div>
+    <p class="form-note">Your information is submitted securely through Google Forms and used only to connect you with our mentoring community.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div>
+      <div class="logo">
+        <span class="dot">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 20L9.5 8l3.5 6 2-3.2L21 20H3z" fill="#eaf6ff"/>
+          </svg>
+        </span>
+        <span>Persian Mountaineers<small>Networking Events</small></span>
+      </div>
+      <p>Connecting members, mentors and mentees across every field — one summit at a time. Let's Go, Mountaineers! 💙💛</p>
+    </div>
+    <div class="foot-links">
+      <a href="#how">How it works</a>
+      <a href="#events">Events</a>
+      <a href="#mentors">Mentors</a>
+      <a href="#join">Request a mentor</a>
+      <a href="#join">Become a mentor</a>
+    </div>
+  </div>
+  <div class="wrap"><p style="margin-top:20px;color:#4f628a;font-size:.8rem">© 2026 Persian Mountaineers Networking Events.</p></div>
+</footer>
+
+<script>
+  /* ===== Tabs: switch between the two Google Forms ===== */
+  var tabs = document.querySelectorAll('.tab');
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      tabs.forEach(function(x){x.classList.remove('active');});
+      t.classList.add('active');
+      var key = t.getAttribute('data-tab');
+      document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+      var panel = document.getElementById('panel-' + key);
+      panel.classList.add('active');
+      // lazy-load the mentor form iframe on first open
+      var frame = panel.querySelector('iframe');
+      if (frame && !frame.src && frame.getAttribute('data-src')) {
+        frame.src = frame.getAttribute('data-src');
+      }
+    });
+  });
+
+  /* ===== Mentorship organized by industry (edit freely) ===== */
+  var GOLD = "#eaaa00,#ffcf5c";
+  var BLUE = "#2e6fb8,#1f4e8f";
+  var INDUSTRIES = [
+    {n:"Law", icon:"⚖️", c:GOLD,
+      b:"Future mentors in law — solicitors, barristers, in-house counsel and legal academics guiding studies and careers."},
+    {n:"Health Care", icon:"🩺", c:BLUE,
+      b:"Future mentors across medicine, nursing, dentistry, pharmacy and allied health, from training to practice."},
+    {n:"Engineering", icon:"⚙️", c:GOLD,
+      b:"Future mentors in civil, mechanical, electrical, chemical and software engineering across every discipline."},
+    {n:"Finance &amp; Banking", icon:"💹", c:BLUE,
+      b:"Future mentors in banking, investment, accounting and financial analysis to guide your path in finance."},
+    {n:"Technology", icon:"💻", c:GOLD,
+      b:"Future mentors in software, data, product and IT — from breaking in to growing into senior and leadership roles."},
+    {n:"Business &amp; Entrepreneurship", icon:"📈", c:BLUE,
+      b:"Future mentors in management, marketing, operations and founders who have built and scaled their own ventures."},
+    {n:"Academia &amp; Research", icon:"🎓", c:GOLD,
+      b:"Future mentors in academia — postgraduate study, research, publishing and navigating a university career."},
+    {n:"Architecture &amp; Design", icon:"📐", c:BLUE,
+      b:"Future mentors in architecture, urban and product design to support your portfolio and professional path."},
+    {n:"Arts &amp; Media", icon:"🎨", c:GOLD,
+      b:"Future mentors in the creative industries — film, media, writing, music and the visual arts."},
+    {n:"Fashion &amp; Textile", icon:"🧵", c:BLUE,
+      b:"Future mentors in fashion and textiles — design, production, merchandising and building a creative career."}
+  ];
+
+  function render(list){
+    var grid = document.getElementById('mentorGrid');
+    grid.innerHTML = list.map(function(m){
+      return '<div class="m-card">'
+        + '<div class="m-top">'
+          + '<div class="m-av" style="background:linear-gradient(135deg,'+m.c+')">'+m.icon+'</div>'
+          + '<div><p class="m-name">'+m.n+'</p><p class="m-role">Future mentors</p></div>'
+        + '</div>'
+        + '<p class="m-bio">'+m.b+'</p>'
+        + '<div class="m-foot">'
+          + '<span class="m-rate"><b>Mentors joining</b><br>Request to be matched</span>'
+          + '<a href="#join" class="btn btn-primary req-btn">Request →</a>'
+        + '</div>'
+      + '</div>';
+    }).join('');
+  }
+
+  render(INDUSTRIES);
+
+  /* When someone clicks Request on an industry card, jump to the mentee form tab */
+  document.getElementById('mentorGrid').addEventListener('click', function(e){
+    if (e.target.closest('.req-btn')) {
+      document.querySelector('.tab[data-tab="mentee"]').click();
+    }
+  });
+</script>
+</body>
+</html>
